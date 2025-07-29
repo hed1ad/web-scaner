@@ -1,6 +1,5 @@
 import requests
 
-
 class DirScanner:
     def __init__(self, base_url: str, wordlist_path: str):
         self.base_url = base_url.rstrip("/") + "/"
@@ -42,3 +41,8 @@ class DirScanner:
 
             except requests.exceptions.RequestException as e:
                 print(f"[ERR] ⚠️ Error on {full_url} — {e}")
+
+if __name__ == "__main__":
+    url = input("Enter URL to scan: ").strip()
+    scanner = DirScanner(base_url=url, wordlist_path="wordlist.txt")
+    scanner.scan()       
