@@ -22,10 +22,6 @@ def show_banner():
     print("Usage: zovscan --target https://example.com --scan all\n")
     print("Press CTRL+C to stop scanning at any time")
 
-import subprocess
-import os
-import sys
-
 from dir_scanner import DirScanner
 
 if __name__ == "__main__":

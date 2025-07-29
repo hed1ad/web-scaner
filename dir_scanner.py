@@ -1,8 +1,7 @@
 import requests
 
-
 class DirScanner:
-    def __init__(self, base_url: str, wordlist_path: str = "wordlist.txt"):
+    def __init__(self, base_url: str, wordlist_path: str):
         self.base_url = base_url.rstrip("/") + "/"
         self.wordlist_path = wordlist_path
         self.directories = self.load_wordlist()
@@ -16,22 +15,34 @@ class DirScanner:
             return []
 
     def scan(self):
-        print(f"[+] Scanning: {self.base_url}")
+        print(f"[+] Starting scan: {self.base_url}")
         print("-" * 50)
 
         for path in self.directories:
-            url = self.base_url + path
+            full_url = self.base_url + path
             try:
-                response = requests.get(url, timeout=5)
+                response = requests.get(full_url, timeout=5)
                 status = response.status_code
 
                 if status == 200:
-                    print(f"[200] ✅ Found: {url}")
+                    print(f"[200] ✅ Found: {full_url}")
                 elif status == 403:
-                    print(f"[403] 🔒 Forbidden: {url}")
+                    print(f"[403] 🚫 Forbidden: {full_url}")
+                elif status == 401:
+                    print(f"[401] 🔒 Unauthorized: {full_url}")
+                elif status in (301, 302):
+                    print(
+                        f"[{status}] 🔁 Redirect: {full_url} → {response.headers.get('Location')}"
+                    )
                 elif status == 404:
-                    print(f"[404] ❌ Not Found: {url}")
+                    print(f"[404] ❌ Not Found: {full_url}")
                 else:
-                    print(f"[{status}] ℹ️  {url}")
-            except requests.RequestException as e:
-                print(f"[ERR] Failed to request {url} — {e}")
+                    print(f"[{status}] ℹ️ Other: {full_url}")
+
+            except requests.exceptions.RequestException as e:
+                print(f"[ERR] ⚠️ Error on {full_url} — {e}")
+
+if __name__ == "__main__":
+    url = input("Enter URL to scan: ").strip()
+    scanner = DirScanner(base_url=url, wordlist_path="wordlist.txt")
+    scanner.scan()       
