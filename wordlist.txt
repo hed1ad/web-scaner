@@ -1,0 +1,10 @@
+admin
+login
+dashboard
+auth
+panel
+config
+uploads
+api
+images
+js
