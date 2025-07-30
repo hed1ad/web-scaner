@@ -1,4 +1,5 @@
 import requests
+import argparse
 
 class DirScanner:
     def __init__(self, base_url: str, wordlist_path: str):
@@ -43,6 +44,11 @@ class DirScanner:
                 print(f"[ERR] ⚠️ Error on {full_url} — {e}")
 
 if __name__ == "__main__":
-    url = input("Enter URL to scan: ").strip()
-    scanner = DirScanner(base_url=url, wordlist_path="wordlist.txt")
-    scanner.scan()       
+    parser = argparse.ArgumentParser(description="Directory scanner tool")
+    parser.add_argument("url", help="URL from scan")
+    parser.add_argument("-w", "--wordlist", required=True, help="Path to wordlist file")
+
+    args = parser.parse_args()
+
+    scanner = DirScanner(base_url=args.url, wordlist_path=args.wordlist)
+    scanner.scan()
