@@ -18,5 +18,5 @@ def test_scan_real_request(scanner, capsys):
     captured = capsys.readouterr()
     assert any(
         code in captured.out 
-        for code in ["[200]", "[403]", "[404]", "[30"]
+        for code in ["[200]", "[403]", "[404]", "[300]"]
     )
