@@ -23,7 +23,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest test/ -v
+          PYTHONPATH=. pytest test/ -v
           
       - name: Upload coverage
         uses: codecov/codecov-action@v3
