@@ -23,8 +23,6 @@ jobs:
       - name: Run Black (форматирование)
         run: |
           black --check -l 120 .
-          # Или для конкретных файлов:
-          # black --check -l 120 *.py test/*.py
 
       - name: Run Pylint (статический анализ)
         run: |
