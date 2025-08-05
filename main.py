@@ -7,7 +7,7 @@ def show_banner():
        | |   / /__    / /\ \  
        |_|  /_____|  /_/  \_\  v1.0
     """
-    
+
     print("\033[1;36m" + banner + "\033[0m")
     print("\033[1;32m{:=^60}\033[0m".format(" ZOV Vulnerability Scanner "))
     print("\033[1;33m• Author:\033[0m hed1ad, erz")
@@ -21,6 +21,7 @@ def show_banner():
     print("\033[1;32m{:=^60}\033[0m".format(""))
     print("Usage: zovscan --target https://example.com --scan all\n")
     print("Press CTRL+C to stop scanning at any time")
+
 
 from dir_scanner import DirScanner
 
